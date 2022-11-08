@@ -1,15 +1,7 @@
-# 🚀 Welcome to your new awesome project!
+# 歌姫周回アシストツール
 
-This project has been created using **webpack-cli**, you can now run
+[こちらからどうぞ](https://mgr-p1.github.io/utahime-asistance/)
 
-```
-npm run build
-```
+## 改訂履歴
 
-or
-
-```
-yarn build
-```
-
-to bundle your application
+- 開発中

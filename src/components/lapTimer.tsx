@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { counterAtomState } from '@/atoms/atom';
 
 type LapTime = string;
 
@@ -10,6 +12,7 @@ const styles = {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    user-select: none;
     @media (orientation: portrait) {
       grid-row: 4 / 6;
       grid-column: 2 / 2;
@@ -40,6 +43,8 @@ const LapTimer = (): JSX.Element => {
   const [tappedTime, setTappedTime] = useState<number>(new Date().getTime());
   const [displayTime, setDisplayTime] = useState<LapTime>('0:00.0');
 
+  const setCount = useSetRecoilState(counterAtomState);
+
   useEffect(() => {
     const id = setInterval(() => {
       const seconds = ((new Date()).getTime() - tappedTime) / 1000;
@@ -58,12 +63,13 @@ const LapTimer = (): JSX.Element => {
       onClick={() => {
         setLapTimes(prev => [displayTime].concat(prev));
         setTappedTime(new Date().getTime());
+        setCount(0);
       }}
     >
       <div css={styles.current}>{displayTime}</div>
       <ul css={styles.list}>
-        {lapTimes.slice(0, 5).map(time => (
-          <li key={time}>{time}</li>
+        {lapTimes.slice(0, 5).map((time, index) => (
+          <li key={index}>{time}</li>
         ))}
       </ul>
     </div>

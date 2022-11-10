@@ -8,7 +8,9 @@ import Counter from '@/components/counter';
 const gridStyle = css`
   display: grid;
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
+  width: 100dvw;
   @media (orientation: portrait) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 1fr);

@@ -10,6 +10,7 @@ const styles = {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    user-select: none;
     @media (orientation: portrait) {
       grid-row: 4 / 6;
       grid-column: 2 / 2;

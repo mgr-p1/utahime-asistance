@@ -1,11 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import { useEffect, useState } from 'react';
+
+type LapTime = string;
 
 const styles = {
   laptimer: css`
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     @media (orientation: portrait) {
       grid-row: 4 / 6;
       grid-column: 2 / 2;
@@ -14,13 +18,54 @@ const styles = {
       grid-row: 2 / 2;
       grid-column: 4 / 6;
     }
-  `
+  `,
+  current: css`
+    font-size: 2rem;
+    text-align: center;
+    width: 50%;
+  `,
+  list: css`
+    font-size: 2rem;
+    list-style: decimal;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 50%;
+  `,
 }
 
 const LapTimer = (): JSX.Element => {
+  const [lapTimes, setLapTimes] = useState<LapTime[]>([]);
+  const [tappedTime, setTappedTime] = useState<number>(new Date().getTime());
+  const [displayTime, setDisplayTime] = useState<LapTime>('0:00.0');
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const seconds = ((new Date()).getTime() - tappedTime) / 1000;
+      const minutes = Math.trunc(seconds / 60);
+      setDisplayTime(`${minutes}:${(seconds % 60).toFixed(1).padStart(4, '0')}`);
+    }, 100);
+
+    return (() => {
+      clearInterval(id);
+    });
+  }, [tappedTime]);
+
   return (
-    <div css={styles.laptimer}>
-      ラップタイム
+    <div
+      css={styles.laptimer}
+      onClick={() => {
+        setLapTimes(prev => [displayTime].concat(prev));
+        setTappedTime(new Date().getTime());
+      }}
+    >
+      <div css={styles.current}>{displayTime}</div>
+      <ul css={styles.list}>
+        {lapTimes.slice(0, 5).map(time => (
+          <li key={time}>{time}</li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -62,8 +62,8 @@ const LapTimer = (): JSX.Element => {
     >
       <div css={styles.current}>{displayTime}</div>
       <ul css={styles.list}>
-        {lapTimes.slice(0, 5).map(time => (
-          <li key={time}>{time}</li>
+        {lapTimes.slice(0, 5).map((time, index) => (
+          <li key={index}>{time}</li>
         ))}
       </ul>
     </div>

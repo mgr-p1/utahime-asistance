@@ -1,10 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import { useRecoilState } from 'recoil';
+import { counterAtomState } from '@/atoms/atom';
 
 const counterStyle = css`
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  font-size: 10rem;
+  user-select: none;
   @media (orientation: portrait) {
     grid-column: 1 / 1;
     grid-row: 4 / 6;
@@ -16,9 +20,18 @@ const counterStyle = css`
 `;
 
 const Counter = (): JSX.Element => {
+  const [count, setCount] = useRecoilState(counterAtomState);
+
+  const countOne = () => {
+    setCount(count => count + 1);
+  };
+
   return (
-    <div css={counterStyle}>
-      カウンター
+    <div
+      css={counterStyle}
+      onClick={() => { countOne(); }}
+    >
+      {count}
     </div>
   );
 };

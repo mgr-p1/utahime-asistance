@@ -9,12 +9,14 @@ const styles = {
     align-items: center;
     user-select: none;
     @media (orientation: portrait) {
-      grid-column: 1 / 4;
-      grid-row: 1 / 5;
+      grid-column: 1 / 3;
+      grid-row: 1 / 4;
+      border-bottom: 1px solid black;
     }
     @media (orientation: landscape) {
       grid-column: 1 / 4;
       grid-row: 1 / 3;
+      border-right: 1px solid black;
     }
   `,
   warn: css`

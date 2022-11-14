@@ -16,10 +16,12 @@ const styles = {
     @media (orientation: portrait) {
       grid-row: 4 / 6;
       grid-column: 2 / 2;
+      border-left: 1px solid black;
     }
     @media (orientation: landscape) {
       grid-row: 2 / 2;
       grid-column: 4 / 6;
+      border-top: 1px solid black;
     }
   `,
   current: css`

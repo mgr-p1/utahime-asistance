@@ -31,12 +31,25 @@ const styles = {
   `,
   list: css`
     font-size: 2rem;
-    list-style: decimal;
-    list-style-position: inside;
+    height: 100%;
+    list-style: none;
     margin: 0;
+    overflow-y: auto;
     padding: 0;
     text-align: center;
     width: 50%;
+  `,
+  item: css`
+    display: flex;
+    justify-content: flex-start;
+  `,
+  label: css`
+    text-align: left;
+    width: 80px;
+
+    &::after {
+      content: '.';
+    }
   `,
 }
 
@@ -49,9 +62,9 @@ const LapTimer = (): JSX.Element => {
 
   useEffect(() => {
     const id = setInterval(() => {
-      const seconds = ((new Date()).getTime() - tappedTime) / 1000;
+      const seconds = (Date.now() - tappedTime) / 1000;
       const minutes = Math.trunc(seconds / 60);
-      setDisplayTime(`${minutes}:${(seconds % 60).toFixed(1).padStart(4, '0')}`);
+      setDisplayTime(`${String(minutes).padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`);
     }, 100);
 
     return (() => {
@@ -64,14 +77,20 @@ const LapTimer = (): JSX.Element => {
       css={styles.laptimer}
       onPointerDown={() => {
         setLapTimes(prev => [displayTime].concat(prev));
-        setTappedTime(new Date().getTime());
+        setTappedTime(Date.now());
         setCount(0);
       }}
     >
       <div css={styles.current}>{displayTime}</div>
       <ul css={styles.list}>
         {lapTimes.map((time, index) => (
-          <li key={index}>{time}</li>
+          <li
+            css={styles.item}
+            key={index}
+          >
+            <span css={styles.label}>{lapTimes.length - index}</span>
+            <span>{time}</span>
+          </li>
         ))}
       </ul>
     </div>

@@ -66,7 +66,7 @@ const V3Timer = (): JSX.Element => {
           css(styles.danger, styles.v3timer) :
           css(styles.warn, styles.v3timer)
       ) : styles.v3timer}
-      onClick={() => {
+      onPointerDown={() => {
         console.log({isDanger});
         if (remainTime > 0) {
           setIsDanger(true);

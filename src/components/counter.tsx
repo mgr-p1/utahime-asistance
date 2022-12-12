@@ -29,7 +29,7 @@ const Counter = (): JSX.Element => {
   return (
     <div
       css={counterStyle}
-      onClick={() => { countOne(); }}
+      onPointerDown={() => { countOne(); }}
     >
       {count}
     </div>

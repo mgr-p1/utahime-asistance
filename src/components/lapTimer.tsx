@@ -62,7 +62,7 @@ const LapTimer = (): JSX.Element => {
   return (
     <div
       css={styles.laptimer}
-      onClick={() => {
+      onPointerDown={() => {
         setLapTimes(prev => [displayTime].concat(prev));
         setTappedTime(new Date().getTime());
         setCount(0);
@@ -70,7 +70,7 @@ const LapTimer = (): JSX.Element => {
     >
       <div css={styles.current}>{displayTime}</div>
       <ul css={styles.list}>
-        {lapTimes.slice(0, 5).map((time, index) => (
+        {lapTimes.map((time, index) => (
           <li key={index}>{time}</li>
         ))}
       </ul>
